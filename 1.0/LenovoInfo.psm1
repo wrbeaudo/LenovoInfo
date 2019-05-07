@@ -151,6 +151,7 @@ Function Get-LenovoWarrantyInfo {
     }
 
     $webresponse = Invoke-LenovoWarrantyRESTAPI @RESTParams
+$global:warrrr = $webresponse
 
     if ($null -eq $webresponse) 
     {
@@ -164,9 +165,11 @@ Function Get-LenovoWarrantyInfo {
 
         if ($webresponse.SelectSingleNode("//serviceInfo")) {
 
-            $properties.Add("ShipDate", $webresponse.wiOutputForm.warrantyInfo.serviceInfo.shipDate[0])
-            $properties.Add("WarrantyStartDate", $webresponse.wiOutputForm.warrantyInfo.serviceInfo.warstart[0])
-            $properties.Add("WarrantyEndDate", $webresponse.wiOutputForm.warrantyInfo.serviceInfo.wed[0])
+            $properties.Add("ShipDate", $webresponse.wiOutputForm.warrantyInfo.serviceInfo.shipDate)
+            $properties.Add("WarrantyStartDate", $webresponse.wiOutputForm.warrantyInfo.serviceInfo.warstart)
+            #$properties.Add("WarrantyEndDate", $webresponse.wiOutputForm.warrantyInfo.serviceInfo.wed)
+            $properties.Add("WarrantyEndDate", $webresponse.wiOutputForm.warrantyInfo.upmaList.upma.mEndDate)
+
         } else {
             $properties.Add("ShipDate", $null)
             $properties.Add("WarrantyStartDate", $null)
