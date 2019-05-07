@@ -151,7 +151,6 @@ Function Get-LenovoWarrantyInfo {
     }
 
     $webresponse = Invoke-LenovoWarrantyRESTAPI @RESTParams
-$global:warrrr = $webresponse
 
     if ($null -eq $webresponse) 
     {
